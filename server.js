@@ -2,9 +2,16 @@ require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const productRoutes = require("./routes/products");
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 mongoose
   .connect(process.env.MONGODB_URL , {
