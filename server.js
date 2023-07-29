@@ -1,10 +1,12 @@
 require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
-const productRoutes = require("./routes/products");
 const path = require("path");
 
+const productRoutes = require("./routes/products");
+
 const app = express();
+const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT || 4000;
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -25,7 +27,6 @@ mongoose
     console.error("Error al conectar a MongoDB:", error);
   });
 
-// Middleware para el manejo de datos JSON en las peticiones
 app.use(express.json());
 
 // Rutas
